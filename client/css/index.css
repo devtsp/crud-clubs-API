@@ -15,8 +15,9 @@ body {
 	border-bottom: 1px solid white;
 }
 
-#club-details-link:hover {
+#club-detail-link:hover {
 	color: rgb(1, 1, 129) !important;
+	cursor: pointer;
 }
 
 #crest-mini {

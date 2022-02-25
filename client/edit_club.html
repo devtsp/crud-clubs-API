@@ -16,123 +16,16 @@
 		<link rel="stylesheet" href="/css/index.css" type="text/css" />
 		<title>Football Club CRUD</title>
 	</head>
+	</head>
 	<body>
 		<div id="app" class="p-4">
 			<!-- NAV BAR -->
 			<div class="mb-4 d-flex justify-content-evenly">
 				<a href="/" class="text-black">New Club</a>
-				<a href="/clubs" class="text-decoration-none text-black">View Clubs</a>
+				<a href="/clubs" class="text-black">View Clubs</a>
 			</div>
-
-			<!-- ALL CLUBS -->
-			<ul
-				id="club-list"
-				class="list-unstyled m-0 d-flex flex-column align-items-stretch"
-			>
-				<li id="{{club.id}}" class="mb-2 text-center">
-					<ul class="list-unstyled d-flex align-items-center">
-						<li
-							id="crest-mini"
-							class="d-flex align-items-center justify-content-center"
-						>
-							<img class="club-crest" src="/uploads/img/{{club.crest}}" />
-						</li>
-						<li
-							class="d-flex align-items-center justify-content-start flex-fill"
-						>
-							<h6 class="fs-6 lh-1 m-0 ps-3">
-								<a
-									id="club-details-link"
-									href="/clubs/{{club.id}}"
-									class="text-black text-decoration-none"
-									>{{club.name}}</a
-								>
-							</h6>
-						</li>
-						<li>
-							<a
-								id="delete-club"
-								class="text-black"
-								href="clubs/delete/{{club.id}}"
-							>
-								<i class="bi bi-trash3 px-2"></i>
-							</a>
-						</li>
-					</ul>
-				</li>
-			</ul>
-			<h6 class="text-center my-4 fw-normal">
-				No clubs to display yet.
-				<strong>
-					<a href="/" class="text-danger">Create One!</a>
-				</strong>
-			</h6>
-		</div>
-
-		<!-- CLUB DETAIL -->
-		<!-- 
-		<ul id="club-info" class="list-unstyled my-2">
-
-			<li class="d-flex justify-content-center align-items-center">
-				<div
-					id="crest-main"
-					class="d-flex justify-content-center align-items-center"
-				>
-					<img src="/uploads/img/{{club.crest}}" alt="{{club.name}}" />
-				</div>
-			</li>
-			<li class="d-flex align-items-center justify-content-center mt-4 mb-2">
-				<h3 class="text-center p-0 m-0 me-3">{{club.name}}</h3>
-				<a
-					id="club-edit-link"
-					href="/clubs/edit/{{club.id}}"
-					class="text-black-50 pt-1"
-					><i class="bi bi-pencil-square fs-5"></i
-				></a>
-			</li> -->
-		<!-- <li
-				style="height: 5px;background-image: linear-gradient(to right, transparent, {{color1}} 20%, {{color1}} 50%, {{color2}} 50%, {{color2}} 80%, transparent);"
-			></li> -->
-		<!-- <div class="container">
-				<li class="row d-flex justify-content-between py-2">
-					<span class="text-black-50 col-4 text-start">TLA </span>
-					<span class="col-8 text-start">{{club.tla}}</span>
-				</li>
-				<li class="row d-flex justify-content-between py-2">
-					<span class="text-black-50 col-4 text-start">Area </span>
-					<span class="col-8 text-start">{{club.area}}</span>
-				</li>
-				<li class="row d-flex justify-content-between py-2">
-					<span class="text-black-50 col-4 text-start">Adress </span>
-					<span class="col-8 text-start">{{club.adress}}</span>
-				</li>
-				<li class="row d-flex justify-content-between py-2">
-					<span class="text-black-50 col-4 text-start">Phone </span>
-					<span class="col-8 text-start">{{club.phone}}</span>
-				</li>
-				<li class="row d-flex justify-content-between py-2">
-					<span class="text-black-50 col-4 text-start">Email </span>
-					<span class="col-8 text-start">{{club.email}}</span>
-				</li>
-				<li class="row d-flex justify-content-between py-2">
-					<span class="text-black-50 col-4 text-start">Founded </span>
-					<span class="col-8 text-start">{{club.founded}}</span>
-				</li>
-				<li class="row d-flex justify-content-between py-2">
-					<span class="text-black-50 col-4 text-start">Venue </span>
-					<span class="col-8 text-start">{{club.venue}}</span>
-				</li>
-				<li class="row d-flex justify-content-between py-2">
-					<span class="text-black-50 col-4 text-start">Last Updated </span>
-					<span class="col-8 text-start">{{club.last-updated}}</span>
-				</li>
-			</div>
-			{{/with}}
-		</ul> -->
-
 		<!-- EDIT CLUB -->
-
-		<!-- <form
+		<form
 			id="edit-form"
 			action="/clubs/edit/{{club.id}}"
 			method="POST"
@@ -301,8 +194,8 @@
 			<div class="d-flex justify-content-center mt-2">
 				<button type="submit" class="btn btn-sm btn-success px-4">Save</button>
 			</div>
-		</form> -->
+		</form>
 
-		<script src="js/index.js" type="module"></script>
+    <script src="js/index.js" type="module"></script>
 	</body>
 </html>
