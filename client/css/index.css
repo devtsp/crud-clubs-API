@@ -11,7 +11,7 @@ body {
 
 /* CLUB LIST */
 
-#club-list > li {
+#club-list-panel > li {
 	border-bottom: 1px solid white;
 }
 
@@ -47,11 +47,11 @@ body {
 	width: 100%;
 }
 
-#club-info h3 {
+#club-detail-panel h3 {
 	letter-spacing: 0.14rem;
 }
 
-#club-info .container li {
+#club-detail-panel .container li {
 	border-bottom: 1px solid white;
 	background-color: rgba(255, 255, 255, 0.226);
 }

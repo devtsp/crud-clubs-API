@@ -7,6 +7,7 @@ const {
 } = require('./club_controller');
 
 const fs = require('fs');
+const cors = require('cors');
 
 const express = require('express');
 const PORT = 8080;
@@ -15,6 +16,7 @@ const app = express();
 const multer = require('multer');
 const upload = multer({ dest: 'server/public/uploads/img' });
 
+app.use(cors());
 app.use(express.static('public'));
 
 app.get('/', (req, res) => {
