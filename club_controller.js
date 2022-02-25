@@ -2,33 +2,36 @@ const uniqid = require('uniqid');
 const fs = require('fs');
 
 const createClub = req => {
-	const newTeam = new FootballClub(req.file, req.body);
-	const newTeamJson = JSON.stringify(newTeam);
-	fs.writeFileSync(`db/saved_teams/${newTeam.id}.json`, newTeamJson);
+	const newClub = new FootballClub(req.file, req.body);
+	fs.writeFileSync(
+		`db/saved_clubs/${newClub.id}.json`,
+		JSON.stringify(newClub)
+	);
+	return newClub;
 };
 
 const getAllClubs = () => {
-	const files = fs.readdirSync('db/saved_teams');
-	const teamObjects = [];
-	files.forEach(savedTeam => {
-		const teamString = fs.readFileSync(`db/saved_teams/${savedTeam}`);
-		const teamObj = JSON.parse(teamString);
-		teamObjects.push(teamObj);
+	const files = fs.readdirSync('db/saved_clubs');
+	const allClubs = [];
+	files.forEach(file => {
+		const club = JSON.parse(fs.readFileSync(`db/saved_clubs/${file}`));
+		allClubs.push(club);
 	});
-	return teamObjects;
+	return allClubs;
 };
 
 const deleteClub = req => {
-	const toDeleteObj = JSON.parse(
-		fs.readFileSync(`db/saved_teams/${req.params.id}.json`)
+	const toDeleteClub = JSON.parse(
+		fs.readFileSync(`db/saved_clubs/${req.params.id}.json`)
 	);
-	const toDeleteImg = toDeleteObj.crest;
+	const toDeleteImg = toDeleteClub.crest;
 	fs.rmSync(`public/uploads/img/${toDeleteImg}`);
-	fs.rmSync(`db/saved_teams/${req.params.id}.json`);
+	fs.rmSync(`db/saved_clubs/${req.params.id}.json`);
+	return toDeleteClub;
 };
 
 const getClub = req => {
-	return JSON.parse(fs.readFileSync(`db/saved_teams/${req.params.id}.json`));
+	return JSON.parse(fs.readFileSync(`db/saved_clubs/${req.params.id}.json`));
 };
 
 const handleCrest = (req, club) => {
@@ -40,7 +43,7 @@ const handleCrest = (req, club) => {
 
 const editClub = req => {
 	const club = JSON.parse(
-		fs.readFileSync(`db/saved_teams/${req.params.id}.json`)
+		fs.readFileSync(`db/saved_clubs/${req.params.id}.json`)
 	);
 	const newCrest = handleCrest(req, club);
 	const newData = req.body;
@@ -51,7 +54,7 @@ const editClub = req => {
 	club['last-updated'] = new Date();
 	club.colors[0] = newData.color1;
 	club.colors[1] = newData.color2;
-	fs.writeFileSync(`db/saved_teams/${club.id}.json`, JSON.stringify(club));
+	fs.writeFileSync(`db/saved_clubs/${club.id}.json`, JSON.stringify(club));
 	return club;
 };
 
