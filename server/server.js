@@ -17,7 +17,7 @@ const multer = require('multer');
 const upload = multer({ dest: 'server/public/uploads/img' });
 
 app.use(cors());
-app.use(express.static('public'));
+app.use(express.static('server/public'));
 
 app.get('/', (req, res) => {
 	const clubs = getAllClubs();

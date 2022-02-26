@@ -19,7 +19,6 @@ const handleNavActive = e => {
 
 const handlePanels = e => {
 	const $panels = document.querySelectorAll('.panel');
-	console.log($panels);
 	[...$panels].forEach($panel => {
 		if ($panel.id.includes(e.target.id)) {
 			$panel.classList.remove('visually-hidden');
@@ -36,9 +35,13 @@ const createClubItem = club => {
 	$clubItem.classList.remove('visually-hidden');
 	$clubItem.id = club.id;
 	$clubItem.querySelector('#club-detail-link').innerText = club.name;
+	$clubItem.querySelector(
+		'img'
+	).src = `http://localhost:8080/uploads/img/${club.crest}`;
+
 	$clubItem.querySelector('img').src = `../uploads/img/${club.crest}`;
 	$clubItem.querySelector('#delete-club').onclick = () => handleDelete(club.id);
-	document.querySelector('#club-list').appendChild($clubItem);
+	document.querySelector('#club-list-panel').appendChild($clubItem);
 };
 
 const handleDelete = async id => {

@@ -4,6 +4,10 @@ const fs = require('fs');
 const createClub = req => {
 	const newClub = new FootballClub(req.file, req.body);
 	fs.writeFileSync(`server/db/${newClub.id}.json`, JSON.stringify(newClub));
+	fs.renameSync(
+		`server/public/uploads/img/${req.file.filename}`,
+		`server/public/uploads/img/${req.file.filename}.png`
+	);
 	return newClub;
 };
 
@@ -56,7 +60,7 @@ const editClub = req => {
 class FootballClub {
 	constructor(file, body) {
 		this.id = uniqid();
-		this.crest = file.filename;
+		this.crest = file.filename + '.png';
 		this.colors = [body.color1, body.color2];
 		this.name = body.name;
 		this.tla = body.tla;
