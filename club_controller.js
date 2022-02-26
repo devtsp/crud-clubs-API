@@ -15,7 +15,7 @@ const createClub = req => {
 };
 
 const getAllClubs = () => {
-	const files = fs.readdirSync(__dirname + '/db');
+	const files = fs.readdirSync(__dirname + '/dbjvgfjh');
 	const allClubs = [];
 	files.forEach(file => {
 		const club = JSON.parse(fs.readFileSync(__dirname + `/db/${file}`));
