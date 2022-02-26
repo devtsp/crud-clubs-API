@@ -2,7 +2,7 @@
 	"name": "crud-clubs-api",
 	"version": "1.0.0",
 	"description": "An API to handle CRUD requests via json",
-	"main": "index.js",
+	"main": "server.js",
 	"dependencies": {
 		"abbrev": "^1.1.1",
 		"accepts": "^1.3.8",
