@@ -14,10 +14,10 @@ const PORT = 8080;
 const app = express();
 
 const multer = require('multer');
-const upload = multer({ dest: '/public/uploads/img' });
+const upload = multer({ dest: './public/uploads/img' });
 
 app.use(cors());
-app.use(express.static('/public'));
+app.use(express.static('./public'));
 
 app.get('/', (req, res) => {
 	const clubs = getAllClubs();
