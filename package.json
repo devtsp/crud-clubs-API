@@ -3,6 +3,9 @@
 	"version": "1.0.0",
 	"description": "An API to handle CRUD requests via json",
 	"main": "server.js",
+	"engines": {
+		"node": "16.13.1"
+	},
 	"dependencies": {
 		"abbrev": "^1.1.1",
 		"accepts": "^1.3.8",
