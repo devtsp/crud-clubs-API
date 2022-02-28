@@ -3,7 +3,8 @@ const fs = require('fs');
 
 const createClub = req => {
 	const newClub = new FootballClub(req.file, req.body);
-	fs.writeFileSync(`db/${newClub.id}.json`, JSON.stringify(newClub));
+	const newTeamJson = JSON.stringify(newClub);
+	fs.writeFileSync(`db/${newClub.id}.json`, newTeamJson);
 	fs.renameSync(
 		`public/uploads/img/${req.file.filename}`,
 		`public/uploads/img/${req.file.filename}.png`
@@ -15,22 +16,26 @@ const getAllClubs = () => {
 	const files = fs.readdirSync('db');
 	const allClubs = [];
 	files.forEach(file => {
-		const club = JSON.parse(fs.readFileSync(`db/${file}`));
-		allClubs.push(club);
+		const teamJson = fs.readFileSync(`db/${file}`);
+		const clubObj = JSON.parse(teamJson);
+		allClubs.push(clubObj);
 	});
 	return allClubs;
 };
 
 const deleteClub = req => {
-	const toDeleteClub = JSON.parse(fs.readFileSync(`db/${req.params.id}.json`));
-	const toDeleteImg = toDeleteClub.crest;
+	const toDeleteClubJson = fs.readFileSync(`db/${req.params.id}.json`);
+	const toDeleteClubObj = JSON.parse(toDeleteClubJson);
+	const toDeleteImg = toDeleteClubObj.crest;
 	fs.rmSync(`public/uploads/img/${toDeleteImg}`);
 	fs.rmSync(`db/${req.params.id}.json`);
-	return toDeleteClub;
+	return toDeleteClubObj;
 };
 
 const getClub = req => {
-	return JSON.parse(fs.readFileSync(`db/${req.params.id}.json`));
+	const clubJson = fs.readFileSync(`db/${req.params.id}.json`);
+	const clubObj = JSON.parse(clubJson);
+	return clubObj;
 };
 
 const handleCrest = (req, club) => {
@@ -41,18 +46,20 @@ const handleCrest = (req, club) => {
 };
 
 const editClub = req => {
-	const club = JSON.parse(fs.readFileSync(`db/${req.params.id}.json`));
-	const newCrest = handleCrest(req, club);
+	const clubJson = fs.readFileSync(`db/${req.params.id}.json`);
+	const clubObj = JSON.parse(clubJson);
+	const newCrest = handleCrest(req, clubObj);
 	const newData = req.body;
-	for (key in club) {
-		newData[key] ? (club[key] = newData[key]) : club[key];
+	for (key in clubObj) {
+		newData[key] ? (clubObj[key] = newData[key]) : clubObj[key];
 	}
-	club.crest = newCrest || club.crest;
-	club['last-updated'] = new Date();
-	club.colors[0] = newData.color1;
-	club.colors[1] = newData.color2;
-	fs.writeFileSync(`db/${club.id}.json`, JSON.stringify(club));
-	return club;
+	clubObj.crest = newCrest || clubObj.crest;
+	clubObj['last-updated'] = new Date();
+	clubObj.colors[0] = newData.color1;
+	clubObj.colors[1] = newData.color2;
+	const editedClubJson = JSON.stringify(clubObj);
+	fs.writeFileSync(`db/${clubObj.id}.json`, editedClubJson);
+	return clubObj;
 };
 
 class FootballClub {
