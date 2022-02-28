@@ -4,7 +4,7 @@ const {
 	getAllClubs,
 	getClub,
 	editClub,
-} = require('club_controller.js');
+} = require('./club_controller.js');
 
 const fs = require('fs');
 const cors = require('cors');
