@@ -19,9 +19,17 @@ const upload = multer({ dest: __dirname + '/public/uploads/img' });
 app.use(cors());
 app.use(express.static(__dirname + '/public'));
 
-app.get('/', (req, res) => {
+app.get('/index', (req, res) => {
 	const clubs = getAllClubs();
-	res.status(200).json(clubs);
+	const namesAndIds = [...clubs].map(club => {
+		return {
+			id: club.id,
+			name: club.name,
+			crest: club.crest,
+			colors: club.colors,
+		};
+	});
+	res.status(200).json(namesAndIds);
 });
 
 app.post('/', upload.single('crest'), (req, res) => {
@@ -39,8 +47,10 @@ app.delete('/:id', (req, res) => {
 	res.status(200).json(deleted);
 });
 
-app.patch('/:id', upload.single('crest'), (req, res) => {
+app.post('/edit/:id', upload.single('crest'), (req, res) => {
+	console.log(req.method, req.url);
 	const edited = editClub(req);
+	console.log(edited);
 	res.json(edited);
 });
 
