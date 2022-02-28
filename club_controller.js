@@ -3,52 +3,45 @@ const fs = require('fs');
 
 const createClub = req => {
 	const newClub = new FootballClub(req.file, req.body);
-	fs.writeFileSync(
-		__dirname + `/db/${newClub.id}.json`,
-		JSON.stringify(newClub)
-	);
+	fs.writeFileSync(`db/${newClub.id}.json`, JSON.stringify(newClub));
 	fs.renameSync(
-		__dirname + `/public/uploads/img/${req.file.filename}`,
-		__dirname + `/public/uploads/img/${req.file.filename}.png`
+		`public/uploads/img/${req.file.filename}`,
+		`public/uploads/img/${req.file.filename}.png`
 	);
 	return newClub;
 };
 
 const getAllClubs = () => {
-	const files = fs.readdirSync(__dirname + '/db');
+	const files = fs.readdirSync('/db');
 	const allClubs = [];
 	files.forEach(file => {
-		const club = JSON.parse(fs.readFileSync(__dirname + `/db/${file}`));
+		const club = JSON.parse(fs.readFileSync(`db/${file}`));
 		allClubs.push(club);
 	});
 	return allClubs;
 };
 
 const deleteClub = req => {
-	const toDeleteClub = JSON.parse(
-		fs.readFileSync(__dirname + `/db/${req.params.id}.json`)
-	);
+	const toDeleteClub = JSON.parse(fs.readFileSync(`db/${req.params.id}.json`));
 	const toDeleteImg = toDeleteClub.crest;
-	fs.rmSync(__dirname + `/public/uploads/img/${toDeleteImg}`);
-	fs.rmSync(__dirname + `/db/${req.params.id}.json`);
+	fs.rmSync(`public/uploads/img/${toDeleteImg}`);
+	fs.rmSync(`db/${req.params.id}.json`);
 	return toDeleteClub;
 };
 
 const getClub = req => {
-	return JSON.parse(fs.readFileSync(__dirname + `/db/${req.params.id}.json`));
+	return JSON.parse(fs.readFileSync(`db/${req.params.id}.json`));
 };
 
 const handleCrest = (req, club) => {
 	if (req.file) {
-		fs.rmSync(__dirname + `/public/uploads/img/${club.crest}`);
+		fs.rmSync(`public/uploads/img/${club.crest}`);
 		return req.file.filename;
 	}
 };
 
 const editClub = req => {
-	const club = JSON.parse(
-		fs.readFileSync(__dirname + `/db/${req.params.id}.json`)
-	);
+	const club = JSON.parse(fs.readFileSync(`db/${req.params.id}.json`));
 	const newCrest = handleCrest(req, club);
 	const newData = req.body;
 	for (key in club) {
@@ -58,7 +51,7 @@ const editClub = req => {
 	club['last-updated'] = new Date();
 	club.colors[0] = newData.color1;
 	club.colors[1] = newData.color2;
-	fs.writeFileSync(__dirname + `/db/${club.id}.json`, JSON.stringify(club));
+	fs.writeFileSync(`db/${club.id}.json`, JSON.stringify(club));
 	return club;
 };
 
